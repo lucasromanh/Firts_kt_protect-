@@ -15,11 +15,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AddDialog(isShowingDialog: () -> Unit) {
+fun AddDialog(
+    isShowingDialog: () -> Unit,
+    onSave: () -> Unit,
+    productQuantity: String,
+    productPrice: String,
+    productName: String,
+    onProductNameChange: (String) -> Unit,
+    onPriceChange: (String) -> Unit,
+    onQuantityChange: (String) -> Unit
+) {
     val prod = "Nombre del Producto"
 
     AlertDialog(
@@ -30,10 +38,22 @@ fun AddDialog(isShowingDialog: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        text = { AddProductForm() },
+        text = {
+            AddProductForm(
+                productName = productName,
+                productPrice = productPrice,
+                productQuantity = productQuantity,
+                onProductNameChange = { onProductNameChange(it) },
+                onPriceChange = { onPriceChange(it) },
+                onQuantityChange = { onQuantityChange(it) }
+            )
+        },
         onDismissRequest = { isShowingDialog() },
         confirmButton = {
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {
+                onSave()
+                isShowingDialog()
+            }) {
                 Text(text = "Confirmar")
             }
         },
@@ -46,20 +66,49 @@ fun AddDialog(isShowingDialog: () -> Unit) {
 }
 
 @Composable
-private fun AddProductForm() {
+private fun AddProductForm(
+    productQuantity: String,
+    productPrice: String,
+    productName: String,
+    onProductNameChange: (String) -> Unit,
+    onPriceChange: (String) -> Unit,
+    onQuantityChange: (String) -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         TextFormField(
+            value = productName,
             label = "Nombre del Producto",
-            onChange = {})
+            onChange = {
+                onProductNameChange(it)
+            })
 
+        TextFormField(
+            numeric = true,
+            value = productPrice.toString(),
+            label = "Precio",
+            onChange = {
+                onPriceChange(it)
+            })
+        TextFormField(
+            numeric = true,
+            value = productQuantity.toString(),
+            label = "Cantidad",
+            onChange = {
+                onQuantityChange(it)
+            })
     }
 }
 
 @Composable
-private fun TextFormField(numeric: Boolean = false, label: String, onChange: () -> Unit) {
+private fun TextFormField(
+    numeric: Boolean = false,
+    label: String,
+    onChange: (String) -> Unit,
+    value: String
+) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,9 +117,9 @@ private fun TextFormField(numeric: Boolean = false, label: String, onChange: () 
         maxLines = 1,
         minLines = 1,
         keyboardOptions = KeyboardOptions(
-            keyboardType = if (numeric) KeyboardType.Number else KeyboardType.Text
+            keyboardType = if (numeric) KeyboardType.Decimal else KeyboardType.Text
         ),
-        label = { Text(text = label)},
-        value = "", onValueChange = {}
+        label = { Text(text = label) },
+        value = value, onValueChange = { onChange(it) }
     )
 }

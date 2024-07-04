@@ -18,19 +18,22 @@ import com.saltacoders.compararprecios.model.Product
 
 @Composable
 fun CardProduct(product: Product) {
-    var nombre = "Nombre del Producto"
-    var precio = 0.0
-    var cantidad = 0
-
-    Card() {
+    Card(
+        modifier = Modifier.padding(bottom = 16.dp)
+    ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(8.dp).height(52.dp),
-            horizontalAlignment = Alignment.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(52.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ) {
             Text(text = "Nombre: ${product.name}")
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(56.dp)
 
             ) {
@@ -40,4 +43,11 @@ fun CardProduct(product: Product) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CardProductPreview() {
+    val prod = Product("Coca-Cola", "6", "2500")
+    CardProduct(product = prod)
 }

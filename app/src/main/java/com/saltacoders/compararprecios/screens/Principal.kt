@@ -1,6 +1,7 @@
 package com.saltacoders.compararprecios.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.saltacoders.compararprecios.components.AddDialog
 import com.saltacoders.compararprecios.components.AddFab
@@ -30,6 +32,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun Principal() {
+    var context = LocalContext.current
+
     var isShowingDialog by rememberSaveable {
         mutableStateOf(false)
     }
@@ -61,7 +65,13 @@ fun Principal() {
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
-            FinishButton()
+            FinishButton {
+                Toast.makeText(
+                    context,
+                    "Para capo\nestas apurado?\nno lo hice todavia",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         if (isShowingDialog) {
             AddDialog(

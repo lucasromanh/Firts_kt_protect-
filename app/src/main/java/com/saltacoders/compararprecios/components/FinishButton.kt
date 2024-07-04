@@ -13,11 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FinishButton() {
-    var context = LocalContext.current
+fun FinishButton(findCheapest: () -> Unit) {
     Button(
-        modifier = Modifier.width(350.dp).padding(start = 8.dp, end = 48.dp, bottom = 16.dp),
-        onClick = { Toast.makeText(context, "Para capo\nestas apurado?\nno lo hice todavia", Toast.LENGTH_SHORT).show()}) {
+        modifier = Modifier
+            .width(350.dp)
+            .padding(start = 8.dp, end = 48.dp, bottom = 16.dp),
+        onClick = { findCheapest() }) {
         Text(text = "Buscar")
     }
 }

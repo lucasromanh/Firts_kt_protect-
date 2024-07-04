@@ -26,7 +26,7 @@ fun CardProduct(product: Product) {
                 .fillMaxWidth()
                 .padding(8.dp)
                 .height(52.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceAround
         ) {
             Text(text = "Nombre: ${product.name}")

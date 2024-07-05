@@ -59,7 +59,9 @@ fun Principal() {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            LazyColumn(modifier = Modifier.weight(1f)) {
+            LazyColumn(modifier = Modifier
+                .weight(1f)
+                .padding(8.dp)) {
                 itemsIndexed(productsState.value.products) { index, product ->
                     CardProduct(product = product)
                 }

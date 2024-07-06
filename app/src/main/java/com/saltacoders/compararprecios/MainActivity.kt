@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.darkColorScheme
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.saltacoders.compararprecios.screens.Principal
 import com.saltacoders.compararprecios.ui.theme.CompararPreciosTheme
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         installSplashScreen()
         setContent {
-            CompararPreciosTheme {
+            CompararPreciosTheme(darkTheme = false) {
                 Box {
                     Principal()
                 }

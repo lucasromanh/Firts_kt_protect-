@@ -50,7 +50,9 @@ fun AddDialog(
         },
         onDismissRequest = { isShowingDialog() },
         confirmButton = {
-            Button(onClick = {
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
                 onSave()
                 isShowingDialog()
             }) {
@@ -58,7 +60,7 @@ fun AddDialog(
             }
         },
         dismissButton = {
-            Button(onClick = { isShowingDialog() }) {
+            Button(modifier = Modifier.fillMaxWidth(), onClick = { isShowingDialog() }) {
                 Text(text = "Cancelar")
             }
         }
